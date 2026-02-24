@@ -142,7 +142,6 @@ jobs:
           --enable-curses \
           --enable-vnc \
           --enable-vnc-jpeg \
-          --enable-vnc-png \
           --enable-vnc-sasl \
           --enable-slirp \
           --enable-tools \
