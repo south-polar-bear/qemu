@@ -123,10 +123,13 @@ jobs:
     - name: Create build directory
       run: |
         ls -lh
+        pwd
         mkdir -p build
+        pwd
     - name: Configure QEMU
       working-directory: build
       run: |
+        pwd
         ls -lh 
         source ../venv/bin/activate
         ../qemu-source/configure \
