@@ -99,6 +99,7 @@ jobs:
 
     - name: Setup Python virtual environment
       run: |
+        ls -lh 
         python3 -m venv venv
         source venv/bin/activate
         pip install --upgrade pip
