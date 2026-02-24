@@ -27,12 +27,13 @@ jobs:
         target: [x86_64-softmmu]
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v4
+      uses: actions/checkout@v6
 
     - name: Install dependencies
       run: |
         sudo apt-get update
         sudo apt-get install -y \
+          tree \
           git \
           python3 \
           python3-venv \
@@ -99,8 +100,9 @@ jobs:
 
     - name: Setup Python virtual environment
       run: |
-        ls -lh 
         python3 -m venv venv
+        pwd
+        tree .
         source venv/bin/activate
         pip install --upgrade pip
         pip install sphinx sphinx-rtd-theme
@@ -119,11 +121,10 @@ jobs:
 #        wget https://download.qemu.org/qemu-$QEMU_VERSION.tar.xz
 #        tar xf qemu-$QEMU_VERSION.tar.xz
 #        mv qemu-$QEMU_VERSION qemu-source
-    - name: Checkout
-      uses: actions/checkout@v6.0.2
+  
     - name: Create build directory
       run: |
-        ls -lh
+        tree .
         pwd
         mkdir -p build
         pwd
@@ -131,7 +132,7 @@ jobs:
       working-directory: build
       run: |
         pwd
-        ls -lh ../../../
+        tree .
         source ../../../venv/bin/activate
         ../configure \
           --target-list=${{ matrix.target }} \
