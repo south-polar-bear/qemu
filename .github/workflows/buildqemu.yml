@@ -135,7 +135,6 @@ jobs:
           --enable-cap-ng \
           --enable-vhost-net \
           --enable-vhost-crypto \
-          --enable-vhost-scsi \
           --enable-vhost-vsock \
           --enable-vhost-user \
           --enable-spice \
