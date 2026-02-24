@@ -93,7 +93,6 @@ jobs:
           libselinux1-dev \
           libkeyutils-dev \
           libglusterfs-dev \
-          libgoogle-perftools-dev \
           valgrind \
           ccache \
           meson
