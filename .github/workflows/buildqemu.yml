@@ -130,7 +130,7 @@ jobs:
       working-directory: build
       run: |
         pwd
-        ls -lh 
+        ls -lh ../../../
         source ../../../venv/bin/activate
         ../configure \
           --target-list=${{ matrix.target }} \
