@@ -118,7 +118,8 @@ jobs:
 #        wget https://download.qemu.org/qemu-$QEMU_VERSION.tar.xz
 #        tar xf qemu-$QEMU_VERSION.tar.xz
 #        mv qemu-$QEMU_VERSION qemu-source
-
+    - name: Checkout
+      uses: actions/checkout@v6.0.2
     - name: Create build directory
       run: mkdir -p build
 
