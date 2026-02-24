@@ -104,20 +104,20 @@ jobs:
         pip install --upgrade pip
         pip install sphinx sphinx-rtd-theme
 
-    - name: Cache QEMU source
-      id: cache-qemu
-      uses: actions/cache@v3
-      with:
-        path: qemu-source
-        key: ${{ runner.os }}-qemu-source-${{ github.event.inputs.qemu_version || '8.2.0' }}
+#    - name: Cache QEMU source
+#      id: cache-qemu
+#      uses: actions/cache@v3
+#      with:
+#        path: qemu-source
+#        key: ${{ runner.os }}-qemu-source-${{ github.event.inputs.qemu_version || '8.2.0' }}
 
-    - name: Download QEMU source
-      if: steps.cache-qemu.outputs.cache-hit != 'true'
-      run: |
-        QEMU_VERSION=${{ github.event.inputs.qemu_version || '8.2.0' }}
-        wget https://download.qemu.org/qemu-$QEMU_VERSION.tar.xz
-        tar xf qemu-$QEMU_VERSION.tar.xz
-        mv qemu-$QEMU_VERSION qemu-source
+#    - name: Download QEMU source
+#      if: steps.cache-qemu.outputs.cache-hit != 'true'
+#      run: |
+#        QEMU_VERSION=${{ github.event.inputs.qemu_version || '8.2.0' }}
+#        wget https://download.qemu.org/qemu-$QEMU_VERSION.tar.xz
+#        tar xf qemu-$QEMU_VERSION.tar.xz
+#        mv qemu-$QEMU_VERSION qemu-source
 
     - name: Create build directory
       run: mkdir -p build
