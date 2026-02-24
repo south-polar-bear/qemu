@@ -132,8 +132,8 @@ jobs:
       working-directory: build
       run: |
         pwd
-        tree .
-        source ../../../venv/bin/activate
+        tree ../venv
+        source ../venv/bin/activate
         ../configure \
           --target-list=${{ matrix.target }} \
           --enable-debug \
