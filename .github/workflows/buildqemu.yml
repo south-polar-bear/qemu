@@ -65,6 +65,7 @@ jobs:
           libcacard-dev \
           libbrlapi-dev \
           libaio-dev \
+          librbd-dev \
           libvdeplug-dev \
           libspice-protocol-dev \
           libxen-dev \
