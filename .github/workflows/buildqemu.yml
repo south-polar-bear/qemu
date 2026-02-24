@@ -131,8 +131,8 @@ jobs:
       run: |
         pwd
         ls -lh 
-        source ../venv/bin/activate
-        ../qemu-source/configure \
+        source ../../../venv/bin/activate
+        ../configure \
           --target-list=${{ matrix.target }} \
           --enable-debug \
           --enable-kvm \
