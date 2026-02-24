@@ -167,7 +167,6 @@ jobs:
           --enable-rbd \
           --enable-curl \
           --enable-fdt=system \
-          --enable-capstone=system \
           --enable-attr \
           --enable-libxml2 \
           --enable-bzip2 \
