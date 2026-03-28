@@ -28,8 +28,38 @@
 
 #include "qemu/osdep.h"
 #include <termios.h>
+#ifdef __ANDROID__
+#include <sys/syscall.h>
+#endif
+#include <sys/mman.h>
 
 #include <glib/gprintf.h>
+
+#ifdef __ANDROID__
+#ifndef __NR_memfd_create
+#define __NR_memfd_create 319
+#endif
+
+static int memfd_create_android(const char *name, unsigned int flags)
+{
+    return syscall(__NR_memfd_create, name, flags);
+}
+
+static int shm_open(const char *name, int oflag, mode_t mode)
+{
+    int fd = memfd_create_android("qemu-shm", MFD_CLOEXEC);
+    if (fd < 0) {
+        errno = ENOSYS;
+        return -1;
+    }
+    return fd;
+}
+
+static int shm_unlink(const char *name)
+{
+    return 0;
+}
+#endif
 
 #include "system/system.h"
 #include "trace.h"
@@ -96,7 +126,9 @@ static QemuCond page_cond;
 
 int qemu_get_thread_id(void)
 {
-#if defined(__linux__)
+#if defined(__ANDROID__)
+    return gettid();
+#elif defined(__linux__)
     return syscall(SYS_gettid);
 #elif defined(__FreeBSD__)
     /* thread id is up to INT_MAX */
@@ -114,7 +146,9 @@ int qemu_get_thread_id(void)
 
 int qemu_kill_thread(int tid, int sig)
 {
-#if defined(__linux__)
+#if defined(__ANDROID__)
+    return tgkill(getpid(), tid, sig);
+#elif defined(__linux__)
     return syscall(__NR_tgkill, getpid(), tid, sig);
 #elif defined(__FreeBSD__)
     return thr_kill2(getpid(), tid, sig);

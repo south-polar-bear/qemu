@@ -1333,10 +1333,10 @@ endif
 spice_headers = spice.partial_dependency(compile_args: true, includes: true)
 
 rt = not_found
-if host_os != 'windows'
+if host_os != 'windows' and host_os != 'android'
   have_shm_open = cc.has_function('shm_open')
   if not have_shm_open
-    rt = cc.find_library('rt', required: true)
+    rt = cc.find_library('rt', required: false)
   endif
 endif
 
