@@ -69,8 +69,8 @@ pkgconfig = 'aarch64-linux-android30-pkg-config'
 skip_sanity_check = true
 
 [built-in options]
-c_args = ['-I$CUSTOM_SYSROOT/usr/include/glib-2.0', '-I$CUSTOM_SYSROOT/lib/glib-2.0/include', '--sysroot=$NDK_SYSROOT']
-cpp_args = ['-I$CUSTOM_SYSROOT/usr/include/glib-2.0', '-I$CUSTOM_SYSROOT/lib/glib-2.0/include', '--sysroot=$NDK_SYSROOT']
+c_args = ['-I$CUSTOM_SYSROOT/usr/include/glib-2.0', '-I$CUSTOM_SYSROOT/lib/glib-2.0/include', '--sysroot=$NDK_SYSROOT', '-Wno-nonnull', '-Wno-error']
+cpp_args = ['-I$CUSTOM_SYSROOT/usr/include/glib-2.0', '-I$CUSTOM_SYSROOT/lib/glib-2.0/include', '--sysroot=$NDK_SYSROOT', '-Wno-nonnull', '-Wno-error']
 c_link_args = ['-L$CUSTOM_SYSROOT/usr/lib', '--sysroot=$NDK_SYSROOT']
 cpp_link_args = ['-L$CUSTOM_SYSROOT/usr/lib', '--sysroot=$NDK_SYSROOT']
 
@@ -105,8 +105,11 @@ EOF
     --disable-werror \
     --disable-vhost-user \
     --disable-virtfs \
-    --extra-cflags="-I$CUSTOM_SYSROOT/usr/include/glib-2.0 -I$CUSTOM_SYSROOT/lib/glib-2.0/include --sysroot=$NDK_SYSROOT" \
-    --extra-ldflags="-L$CUSTOM_SYSROOT/usr/lib --sysroot=$NDK_SYSROOT"
+    --prefix="$HOME/android" \
+    --extra-cflags="-I$CUSTOM_SYSROOT/usr/include/glib-2.0 -I$CUSTOM_SYSROOT/lib/glib-2.0/include --sysroot=$NDK_SYSROOT -Wno-nonnull" \
+    --extra-ldflags="-L$CUSTOM_SYSROOT/usr/lib --sysroot=$NDK_SYSROOT" \
+    --disable-tools \
+    --disable-guest-agent
 configure_status=$?
 
 # If configure failed due to meson error, patch the cross file and retry
@@ -129,3 +132,6 @@ fi
 
 # Single-threaded build for low-resource systems
 make
+
+# Install to prefix
+make install
